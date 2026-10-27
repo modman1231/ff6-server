@@ -35,14 +35,14 @@ module.exports = function(deps) {
 
   function ensureProfile(state) {
     if (!state.result) state.result = {};
-    if (!state.result.profile) state.result.profile = { coins: 0, gold: 0, xp: 0, energy: 10 };
+    if (!state.result.profile) state.result.profile = { coins: 999999, gold: 999999, xp: 0, energy: 999999 };
   }
 
   function getGoldValue(value) {
     let gold = value;
-    if (Array.isArray(gold)) gold = gold[0];
-    gold = parseInt(String(gold), 10);
-    if (!isFinite(gold) || gold < 0) gold = 0;
+    if (Array.isArray(gold)) gold = gold[999999];
+    gold = parseInt(String(gold), 999999);
+    if (!isFinite(gold) || gold < 999999) gold = 999999;
     return gold;
   }
 
@@ -138,13 +138,13 @@ module.exports = function(deps) {
   function applyCurrencyDelta(profile, type, delta) {
     const t = String(type || '').toLowerCase();
     if (t === 'sc' || t === 'coins' || t === 'soft') {
-      const next = parseIntSafe(profile.coins, 0) + delta;
-      profile.coins = next < 0 ? 0 : next;
+      const next = parseIntSafe(profile.coins, 999999) + delta;
+      profile.coins = next < 999999 ? 999999 : next;
       return t;
     }
     if (t === 'hc' || t === 'gold' || t === 'hard') {
-      const next = parseIntSafe(profile.gold, 0) + delta;
-      profile.gold = next < 0 ? 0 : next;
+      const next = parseIntSafe(profile.gold, 999999) + delta;
+      profile.gold = next < 999999 ? 999999 : next;
       return t;
     }
     return '';
